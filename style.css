@@ -71,6 +71,30 @@ nav {
     gap: 8px;
 }
 
+/* hide mobile toggle by default on desktop */
+.nav-toggle {
+    display: none;
+}
+
+/* ensure visible and positioned correctly when shown */
+.nav-toggle {
+    margin-left: auto;
+    z-index: 350;
+    color: var(--dark);
+}
+
+.nav-toggle:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+.hamburger-icon {
+    display: block;
+    width: 22px;
+    height: 22px;
+}
+
 .logo-dot {
     width: 8px;
     height: 8px;
@@ -1376,4 +1400,407 @@ footer {
     text-align: center;
     font-size: 0.78rem;
     color: rgba(255, 255, 255, 0.18);
+}
+
+/* ─── RESPONSIVE DESIGN ─── */
+
+/* Tablet and smaller */
+@media (max-width: 768px) {
+    /* Navigation: show hamburger and hide full list on tablet */
+    nav {
+        padding: 5px 20px;
+        width: calc(100% - 40px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    /* hide full nav by default on tablet */
+    nav ul {
+        display: none;
+        gap: 16px;
+    }
+
+    nav ul a {
+        font-size: 0.9rem;
+    }
+
+    .nav-cta {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+
+    /* open state for tablet: same dropdown as mobile */
+    nav.nav-open ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 12px 16px;
+        background: rgba(255,255,255,0.95);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 12px;
+        width: calc(100% - 48px);
+        max-width: 360px;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 200;
+    }
+
+    /* Hero */
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 100px 32px 60px;
+        gap: 40px;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 8vw, 4rem);
+    }
+
+    .hero-desc {
+        font-size: 1rem;
+        max-width: none;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .btn-dark,
+    .btn-outline {
+        justify-content: center;
+    }
+
+    .hero-trust {
+        justify-content: center;
+    }
+
+    /* Services */
+    .services-section {
+        padding: 80px 32px;
+    }
+
+    .section-header {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+
+    .bento {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .bc1,
+    .bc2,
+    .bc3,
+    .bc4,
+    .bc5,
+    .bc6,
+    .bc7 {
+        grid-column: span 1;
+    }
+
+    /* Process */
+    .process-section {
+        padding: 80px 32px;
+    }
+
+    .steps-row {
+        grid-template-columns: 1fr;
+    }
+
+    .step-card:first-child {
+        border-radius: 20px 20px 0 0;
+    }
+
+    .step-card:last-child {
+        border-radius: 0 0 20px 20px;
+    }
+
+    /* Why */
+    .why-section {
+        padding: 80px 32px;
+    }
+
+    .why-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .why-points-list {
+        gap: 20px;
+    }
+
+    .wp {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .wp-num {
+        align-self: center;
+    }
+
+    /* Testimonials */
+    .testi-section {
+        padding: 80px 32px;
+    }
+
+    .testi-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .tc.featured {
+        grid-row: span 1;
+    }
+
+    /* CTA */
+    .cta-section {
+        padding: 80px 32px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-accent,
+    .btn-ghost {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Footer */
+    footer {
+        padding: 28px 32px;
+    }
+
+    .footer-simple {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .footer-simple-center {
+        justify-content: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    /* Navigation: mobile dropdown */
+    nav {
+        padding: 8px 12px;
+        width: calc(100% - 24px);
+        max-width: 1100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    /* hamburger button */
+    .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav-toggle .hamburger,
+    .nav-toggle .hamburger::before,
+    .nav-toggle .hamburger::after {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--dark);
+        border-radius: 2px;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle .hamburger::before {
+        transform: translateY(-6px);
+    }
+
+    .nav-toggle .hamburger::after {
+        transform: translateY(4px);
+    }
+
+    /* hide full nav by default on mobile */
+    nav ul {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 12px 16px;
+        background: rgba(255,255,255,0.95);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 12px;
+        width: calc(100% - 48px);
+        max-width: 320px;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 200;
+    }
+
+    nav ul a {
+        font-size: 0.9rem;
+        text-align: left;
+        padding: 8px 12px;
+        display: block;
+        width: 100%;
+    }
+
+    .nav-cta {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    /* when nav has .nav-open show menu and animate hamburger */
+    nav.nav-open ul {
+        display: flex;
+    }
+
+    nav.nav-open .nav-toggle .hamburger {
+        transform: rotate(45deg);
+        background: transparent;
+    }
+
+    nav.nav-open .nav-toggle .hamburger::before {
+        transform: rotate(90deg);
+        translate: 0 0;
+    }
+
+    nav.nav-open .nav-toggle .hamburger::after {
+        opacity: 0;
+    }
+
+    /* Hero */
+    .hero {
+        padding: 80px 20px 40px;
+        gap: 30px;
+    }
+
+    h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .hero-desc {
+        font-size: 0.95rem;
+    }
+
+    .hero-card-main {
+        padding: 32px 24px 24px;
+    }
+
+    .mac-icon-big {
+        font-size: 3rem;
+    }
+
+    .card-main-title {
+        font-size: 1.5rem;
+    }
+
+    .card-metrics {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Services */
+    .services-section {
+        padding: 60px 20px;
+    }
+
+    .bento-card {
+        padding: 24px 20px;
+    }
+
+    .bc-icon {
+        font-size: 2rem;
+    }
+
+    .bc-title {
+        font-size: 1.1rem;
+    }
+
+    /* Process */
+    .process-section {
+        padding: 60px 20px;
+    }
+
+    .step-card {
+        padding: 24px 20px;
+    }
+
+    .step-index {
+        font-size: 2.5rem;
+    }
+
+    /* Why */
+    .why-section {
+        padding: 60px 20px;
+    }
+
+    .why-card-top {
+        padding: 24px;
+    }
+
+    .why-card-top h3 {
+        font-size: 1.3rem;
+    }
+
+    .why-pillars {
+        padding: 20px 24px;
+    }
+
+    .wp {
+        padding: 20px;
+    }
+
+    /* Testimonials */
+    .testi-section {
+        padding: 60px 20px;
+    }
+
+    .tc {
+        padding: 24px;
+    }
+
+    .tc-quote {
+        font-size: 2rem;
+    }
+
+    /* CTA */
+    .cta-section {
+        padding: 60px 20px;
+    }
+
+    .cta-section h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    /* Footer */
+    footer {
+        padding: 20px 20px;
+    }
 }
