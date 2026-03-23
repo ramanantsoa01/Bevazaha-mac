@@ -35,6 +35,16 @@ document.querySelectorAll('.bento-card, .tc, .wp, .step-card, .pillar').forEach(
     io.observe(el);
 });
 
+// Navbar Scroll Effect
+const mainNav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+        mainNav.classList.add('scrolled');
+    } else {
+        mainNav.classList.remove('scrolled');
+    }
+});
+
     // Mobile nav toggle
     const nav = document.querySelector('nav');
     const navToggle = document.querySelector('.nav-toggle');
