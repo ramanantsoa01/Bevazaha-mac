@@ -30,7 +30,7 @@ const io = new IntersectionObserver(entries => {
     });
 }, { threshold: 0.08 });
 
-document.querySelectorAll('.bento-card, .tc, .wp, .step-card, .pillar').forEach(el => {
+document.querySelectorAll('.bento-card, .tc, .wp, .pillar, .delivery-card, .t-step').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(22px)';
     el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
