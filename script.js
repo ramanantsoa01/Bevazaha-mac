@@ -3,20 +3,22 @@ const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mx = 0, my = 0, rx = 0, ry = 0;
 
-document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx - 4 + 'px';
-    cursor.style.top = my - 4 + 'px';
-});
+if (cursor && ring) {
+    document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = mx - 4 + 'px';
+        cursor.style.top = my - 4 + 'px';
+    });
 
-function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx - 18 + 'px';
-    ring.style.top = ry - 18 + 'px';
-    requestAnimationFrame(animRing);
+    function animRing() {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.left = rx - 18 + 'px';
+        ring.style.top = ry - 18 + 'px';
+        requestAnimationFrame(animRing);
+    }
+    animRing();
 }
-animRing();
 
 // Scroll reveal
 const io = new IntersectionObserver(entries => {
@@ -53,6 +55,7 @@ window.addEventListener('scroll', () => {
     if (navToggle && nav && primaryNav) {
         navToggle.addEventListener('click', (e) => {
             const isOpen = nav.classList.toggle('nav-open');
+            document.body.classList.toggle('no-scroll', isOpen);
             navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             // update label
             navToggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
@@ -63,6 +66,7 @@ window.addEventListener('scroll', () => {
             a.addEventListener('click', () => {
                 if (nav.classList.contains('nav-open')) {
                     nav.classList.remove('nav-open');
+                    document.body.classList.remove('no-scroll');
                     navToggle.setAttribute('aria-expanded', 'false');
                     navToggle.setAttribute('aria-label', 'Ouvrir le menu');
                 }
@@ -74,6 +78,7 @@ window.addEventListener('scroll', () => {
             if (!nav.classList.contains('nav-open')) return;
             if (!nav.contains(e.target)) {
                 nav.classList.remove('nav-open');
+                document.body.classList.remove('no-scroll');
                 navToggle.setAttribute('aria-expanded', 'false');
                 navToggle.setAttribute('aria-label', 'Ouvrir le menu');
             }
@@ -83,6 +88,7 @@ window.addEventListener('scroll', () => {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && nav.classList.contains('nav-open')) {
                 nav.classList.remove('nav-open');
+                document.body.classList.remove('no-scroll');
                 navToggle.setAttribute('aria-expanded', 'false');
                 navToggle.setAttribute('aria-label', 'Ouvrir le menu');
             }

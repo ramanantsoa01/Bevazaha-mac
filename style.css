@@ -156,95 +156,229 @@ nav ul a:hover::after {
 }
 
 /* Mobile Toggle Styling */
+.nav-toggle {
+    display: none;
+    position: relative;
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    transition: all 0.3s ease;
+}
+
 .hamburger {
-    width: 24px;
+    width: 22px;
     height: 2px;
     background: var(--text);
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hamburger::before,
 .hamburger::after {
     content: '';
     position: absolute;
-    width: 24px;
+    width: 22px;
     height: 2px;
     background: var(--text);
     left: 0;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hamburger::before {
-    top: -8px;
+    top: -6px;
 }
 
 .hamburger::after {
-    top: 8px;
+    top: 6px;
 }
 
-.nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1100;
+/* Active state for mobile nav toggle */
+.nav-open .hamburger {
+    background: transparent;
+}
+
+.nav-open .hamburger::before {
+    top: 0;
+    transform: rotate(45deg);
+    background: var(--dark);
+}
+
+.nav-open .hamburger::after {
+    top: 0;
+    transform: rotate(-45deg);
+    background: var(--dark);
 }
 
 /* ─── RESPONSIVE NAV ─── */
 @media (max-width: 992px) {
-    .nav-toggle {
-        display: block;
+    nav {
+        left: 20px;
+        right: 20px;
+        width: auto;
+        transform: none;
+        top: 20px;
+        transition: all 0.5s ease;
+        /* KILL the containing block so ul position: fixed works flawlessly */
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
+    nav.scrolled {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 1) !important;
+    }
+
+    /* Make nav entirely unrestrictive when open */
+    nav.nav-open {
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        z-index: 99999;
+    }
+
+    .nav-toggle {
+        display: flex;
+        position: relative;
+        z-index: 999999;
+    }
+    
+    .nav-open .logo {
+        position: relative;
+        z-index: 999999;
+    }
+
+    /* The UL becomes the true fullscreen overlay! */
     nav ul {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 85%;
-        max-width: 400px;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        max-width: none !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(25px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+        display: flex !important;
         flex-direction: column;
         justify-content: center;
-        padding: 80px 40px;
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: -20px 0 60px rgba(0, 0, 0, 0.05);
-        backdrop-filter: blur(20px);
+        align-items: center;
+        padding: 40px 20px;
+        gap: 32px;
+        z-index: 99998 !important; /* Just below logo/toggle */
+        
+        /* Hide strictly */
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
     }
 
     .nav-open ul {
-        right: 0;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
     }
 
-    .nav-open .hamburger {
-        background: transparent;
-    }
-
-    .nav-open .hamburger::before {
-        transform: rotate(45deg) translate(5px, 6px);
-    }
-
-    .nav-open .hamburger::after {
-        transform: rotate(-45deg) translate(5px, -6px);
+    /* Animate links securely ONLY when taking the nav-open state */
+    @keyframes slideUp {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
 
     nav ul li {
         width: 100%;
         text-align: center;
+        opacity: 0;
+        transform: translateY(0);
+        transition: none;
     }
+
+    .nav-open ul li {
+        animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .nav-open ul li:nth-child(1) { animation-delay: 0.05s; }
+    .nav-open ul li:nth-child(2) { animation-delay: 0.1s; }
+    .nav-open ul li:nth-child(3) { animation-delay: 0.15s; }
+    .nav-open ul li:nth-child(4) { animation-delay: 0.2s; }
+    .nav-open ul li:nth-child(5) { animation-delay: 0.25s; }
 
     nav ul a {
-        font-size: 1.5rem;
-        display: block;
-        padding: 15px 0;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: clamp(2rem, 8vw, 3rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        display: inline-block;
+        padding: 4px 16px;
+        position: relative;
+        text-decoration: none;
+        transition: all 0.3s ease;
     }
 
-    .nav-cta {
-        margin-top: 20px;
-        justify-content: center;
+    nav ul a::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 50%;
+        transform: translateY(-50%) scale(0);
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    nav ul a:hover::before, nav ul a:active::before {
+        transform: translateY(-50%) scale(1);
+    }
+    
+    nav ul a::after {
+        display: none;
+    }
+
+    nav ul a:hover, nav ul a:active {
+        color: var(--accent);
+    }
+
+    nav ul .nav-cta {
+        margin-top: 24px;
+        width: auto;
+        font-size: 1.1rem;
+        padding: 16px 36px;
+        background: var(--dark);
+        color: white !important;
+        border-radius: 100px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    nav ul .nav-cta:hover, nav ul .nav-cta:active {
+        background: var(--accent);
+        transform: scale(1.05); /* Slight popup */
+        box-shadow: 0 12px 35px rgba(200, 75, 17, 0.25);
+    }
+}
+
+/* Body Lock */
+body.no-scroll {
+    overflow: hidden;
 }
 
 /* ─── HERO ─── */
