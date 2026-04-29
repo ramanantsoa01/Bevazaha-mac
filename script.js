@@ -73,6 +73,25 @@ window.addEventListener('scroll', () => {
             });
         });
 
+        // Subtle Magnetic Effect for Toggle
+        if (navToggle) {
+            navToggle.addEventListener('mousemove', (e) => {
+                const rect = navToggle.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                navToggle.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
+                const inner = navToggle.querySelector('.hamburger');
+                if (inner) inner.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+
+            navToggle.addEventListener('mouseleave', () => {
+                navToggle.style.transform = '';
+                const inner = navToggle.querySelector('.hamburger');
+                if (inner) inner.style.transform = '';
+            });
+        }
+
         // click outside to close
         document.addEventListener('click', (e) => {
             if (!nav.classList.contains('nav-open')) return;
