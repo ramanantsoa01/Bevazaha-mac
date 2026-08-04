@@ -415,7 +415,7 @@ body.no-scroll {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 120px 64px 80px;
+    padding: 180px 64px 80px;
     gap: 80px;
     position: relative;
     overflow: hidden;
@@ -1759,7 +1759,7 @@ footer {
     /* Hero */
     .hero {
         grid-template-columns: 1fr;
-        padding: 100px 32px 60px;
+        padding: 140px 32px 60px;
         gap: 40px;
     }
 
@@ -2000,7 +2000,7 @@ footer {
 
     /* Hero */
     .hero {
-        padding: 80px 20px 40px;
+        padding: 120px 20px 40px;
         gap: 30px;
     }
 
