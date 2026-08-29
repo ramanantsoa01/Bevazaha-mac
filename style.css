@@ -1700,16 +1700,23 @@ footer {
     .hero {
         grid-template-columns: 1fr;
         padding: 140px 32px 60px;
-        gap: 40px;
+        gap: 20px;
     }
 
     h1 {
-        font-size: clamp(2.5rem, 8vw, 4rem);
+        text-align: center;
+        font-size: clamp(2.2rem, 9vw, 3.2rem);
+        line-height: 1.25;
+    }
+
+    .hero-eyebrow {
+        justify-content: center;
     }
 
     .hero-desc {
         font-size: 1rem;
         max-width: none;
+        text-align: justify;
     }
 
     .hero-actions {
