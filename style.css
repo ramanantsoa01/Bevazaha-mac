@@ -155,6 +155,8 @@ nav ul a:hover::after {
     box-shadow: 0 8px 20px rgba(200, 75, 17, 0.2);
 }
 
+
+
 /* Mobile Toggle Styling */
 .nav-toggle {
     display: none;
@@ -2413,9 +2415,9 @@ footer {
         width: 55px;
         height: 55px;
     }
-    
+
     .whatsapp-icon {
         width: 28px;
         height: 28px;
     }
-}
+}
