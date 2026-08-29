@@ -242,19 +242,14 @@ nav ul a:hover::after {
 /* ─── RESPONSIVE NAV ─── */
 @media (max-width: 992px) {
     nav {
-        left: 20px;
-        right: 20px;
+        left: 16px;
+        right: 16px;
         width: auto;
         transform: none;
-        top: 20px;
-        transition: all 0.5s ease;
-        /* KILL the containing block so ul position: fixed works flawlessly */
+        top: 16px;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         background: rgba(255, 255, 255, 0.98) !important;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
     }
 
     nav.scrolled {
@@ -264,147 +259,124 @@ nav ul a:hover::after {
         background: rgba(255, 255, 255, 1) !important;
     }
 
-    /* Make nav entirely unrestrictive when open */
     nav.nav-open {
         background: transparent !important;
         border-color: transparent !important;
         box-shadow: none !important;
-        z-index: 99999;
     }
 
     .nav-toggle {
         display: flex;
         position: relative;
-        z-index: 999999;
+        z-index: 1200;
     }
 
     .nav-open .logo {
         position: relative;
-        z-index: 999999;
+        z-index: 1200;
     }
 
-    /* The UL becomes the true fullscreen overlay! */
     nav ul {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-        max-width: none !important;
-        margin: 0 !important;
-        border-radius: 0 !important;
-        background: rgba(250, 250, 250, 0.85) !important;
-        backdrop-filter: blur(35px) saturate(200%) !important;
-        -webkit-backdrop-filter: blur(35px) saturate(200%) !important;
-        display: flex !important;
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100dvh;
+        margin: 0;
+        border-radius: 0;
+        background: rgba(250, 250, 250, 0.92);
+        backdrop-filter: blur(30px) saturate(180%);
+        -webkit-backdrop-filter: blur(30px) saturate(180%);
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 40px 10%;
         gap: 16px;
-        z-index: 99998 !important;
-        /* Just below logo/toggle */
-
-        /* Hide strictly */
+        padding: 40px;
+        z-index: 1100;
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.4s ease, visibility 0.4s ease;
+        transition: opacity 0.35s ease, visibility 0.35s ease;
     }
 
     .nav-open ul {
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: all !important;
-    }
-
-    @keyframes slideUp {
-        0% {
-            opacity: 0;
-            transform: translateY(40px) skewY(2deg);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translateY(0) skewY(0);
-        }
+        visibility: visible;
+        opacity: 1;
+        pointer-events: all;
     }
 
     nav ul li {
         width: 100%;
+        max-width: 320px;
         text-align: center;
         opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    nav.nav-open ul li {
+        opacity: 1;
         transform: translateY(0);
-        transition: none;
     }
 
-    .nav-open ul li {
-        animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    nav.nav-open ul li:nth-child(1) {
+        transition-delay: 0.08s;
     }
 
-    .nav-open ul li:nth-child(1) {
-        animation-delay: 0.1s;
+    nav.nav-open ul li:nth-child(2) {
+        transition-delay: 0.14s;
     }
 
-    .nav-open ul li:nth-child(2) {
-        animation-delay: 0.15s;
+    nav.nav-open ul li:nth-child(3) {
+        transition-delay: 0.20s;
     }
 
-    .nav-open ul li:nth-child(3) {
-        animation-delay: 0.2s;
+    nav.nav-open ul li:nth-child(4) {
+        transition-delay: 0.26s;
     }
 
-    .nav-open ul li:nth-child(4) {
-        animation-delay: 0.25s;
-    }
-
-    .nav-open ul li:nth-child(5) {
-        animation-delay: 0.3s;
+    nav.nav-open ul li:nth-child(5) {
+        transition-delay: 0.32s;
     }
 
     nav ul a:not(.nav-cta) {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 20px;
+        font-size: 22px;
         font-weight: 700;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.03em;
         color: var(--dark);
         display: block;
         width: 100%;
-        padding: 5px 0;
+        padding: 8px 0;
         text-decoration: none;
-        transition: all 0.3s ease;
-        text-align: center;
+        transition: color 0.25s ease, transform 0.25s ease;
     }
 
     nav ul a:not(.nav-cta):hover,
     nav ul a:not(.nav-cta):active {
         color: var(--accent);
-        transform: scale(1.05);
     }
 
+
     nav ul .nav-cta {
-        margin-top: 20px;
+        margin-top: 12px;
         width: 100%;
+        max-width: 320px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         background: linear-gradient(135deg, var(--accent) 0%, #ff6b2b 100%);
         color: white !important;
-        font-size: 1.15rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        padding: 10px !important;
+        padding: 16px !important;
         border-radius: 16px;
-        border: none;
         box-shadow: 0 15px 35px rgba(200, 75, 17, 0.25);
-        display: block;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    nav ul .nav-cta:hover,
-    nav ul .nav-cta:active {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(200, 75, 17, 0.35);
     }
 }
+
 
 /* Body Lock */
 body.no-scroll {
@@ -1724,40 +1696,6 @@ footer {
         display: inline-flex;
     }
 
-    /* hide full nav by default on tablet */
-    nav ul {
-        display: none;
-        gap: 16px;
-    }
-
-    nav ul a {
-        font-size: 0.9rem;
-    }
-
-    .nav-cta {
-        padding: 10px 16px;
-        font-size: 0.9rem;
-    }
-
-    /* open state for tablet: same dropdown as mobile */
-    nav.nav-open ul {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        position: absolute;
-        top: calc(100% + 12px);
-        right: 12px;
-        width: calc(100% - 48px);
-        max-width: 360px;
-        flex-direction: column;
-        gap: 12px;
-        z-index: 200;
-    }
-
     /* Hero */
     .hero {
         grid-template-columns: 1fr;
@@ -1916,88 +1854,14 @@ footer {
         gap: 8px;
     }
 
-    /* hamburger button */
     .nav-toggle {
         display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
     }
 
-    .nav-toggle .hamburger,
-    .nav-toggle .hamburger::before,
-    .nav-toggle .hamburger::after {
-        content: '';
-        display: block;
-        width: 20px;
-        height: 2px;
-        background: var(--dark);
-        border-radius: 2px;
-        transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .nav-toggle .hamburger::before {
-        transform: translateY(-6px);
-    }
-
-    .nav-toggle .hamburger::after {
-        transform: translateY(4px);
-    }
-
-    /* hide full nav by default on mobile */
-    nav ul {
-        display: none;
-        list-style: none;
-        margin: 0;
-        padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        position: absolute;
-        top: calc(100% + 12px);
-        right: 12px;
-        width: calc(100% - 48px);
-        max-width: 320px;
-        flex-direction: column;
-        gap: 12px;
-        z-index: 200;
-    }
-
-    nav ul a {
-        font-size: 0.9rem;
-        text-align: left;
-        padding: 8px 12px;
-        display: block;
-        width: 100%;
-    }
 
     .nav-cta {
         padding: 10px 14px;
         font-size: 0.9rem;
-    }
-
-    /* when nav has .nav-open show menu and animate hamburger */
-    nav.nav-open ul {
-        display: flex;
-    }
-
-    nav.nav-open .nav-toggle .hamburger {
-        transform: rotate(45deg);
-        background: transparent;
-    }
-
-    nav.nav-open .nav-toggle .hamburger::before {
-        transform: rotate(90deg);
-        translate: 0 0;
-    }
-
-    nav.nav-open .nav-toggle .hamburger::after {
-        opacity: 0;
     }
 
     /* Hero */
